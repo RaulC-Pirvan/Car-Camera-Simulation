@@ -2,6 +2,9 @@ import cv2
 from Resize import resizeWindow
 from Grayscale import toGray
 from RoadOnly import toTrapezoid
+from TopDown import toTopDown
+from Blur import setBlur
+from EdgeDetection import edgeDetection
 import numpy
 
 cam = cv2.VideoCapture('Lane Detection Test Video-01.mp4')
@@ -21,15 +24,19 @@ while True:
 
     resizedWindow = resizeWindow(frame)
     grayWindow = toGray(resizedWindow)
-    trapezoid = toTrapezoid(grayWindow)
+    trapezoidWindow = toTrapezoid(grayWindow)
+    topDownWindow = toTopDown(trapezoidWindow * grayWindow)
+    blurWindow = setBlur(topDownWindow)
+    edgeDetectionWindow = edgeDetection(blurWindow)
 
     # The syntax of the command is as followed: cv2.imshow(window_name, image)
     # Here we are going to create all the windows
-    cv2.imshow('Resized Window', resizedWindow)             # TASK 2
-    cv2.imshow('Grayscale Window', grayWindow)              # TASK 3
-    cv2.imshow("Trapezoid Window", trapezoid * 255)         # TASK 4
-    cv2.imshow("Road-Only Window", trapezoid * grayWindow)  # TASK 4
-
+    cv2.imshow('Resized Window', resizedWindow)                     # TASK 2
+    cv2.imshow('Grayscale Window', grayWindow)                      # TASK 3
+    cv2.imshow("Road-Only Window", trapezoidWindow * grayWindow)    # TASK 4
+    cv2.imshow("Top-Down Window", topDownWindow)                    # TASK 5
+    cv2.imshow("Blurred Window", blurWindow)                        # TASK 6
+    cv2.imshow("Edge-Detection Window", edgeDetectionWindow)        # TASK 7
     # Here we use the "q" key to close the windows
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
