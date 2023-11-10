@@ -36,7 +36,7 @@ while True:
     cv2.imshow("Road-Only Window", trapezoidWindow * grayWindow)    # TASK 4
     cv2.imshow("Top-Down Window", topDownWindow)                    # TASK 5
     cv2.imshow("Blurred Window", blurWindow)                        # TASK 6
-    #cv2.imshow("Edge-Detection Window", edgeDetectionWindow)        # TASK 7
+    cv2.imshow("Edge-Detection Window", edgeDetectionWindow)        # TASK 7
     # Here we use the "q" key to close the windows
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
