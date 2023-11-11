@@ -7,6 +7,7 @@ from Blur import setBlur
 from EdgeDetection import edgeDetection
 from Threshold import toBinary
 from MarkingCoordinates import setMarkingCoordinates
+from VirtualLines import setVirtualLines
 
 cam = cv2.VideoCapture('Lane Detection Test Video-01.mp4')
 
@@ -30,23 +31,24 @@ while True:
     blurWindow = setBlur(topDownWindow)
     edgeDetectionWindow = edgeDetection(blurWindow)
     binarizedWindow = toBinary(edgeDetectionWindow)
-    markingCoordinates = setMarkingCoordinates(binarizedWindow)     # TASK 9
+    (markingCoordinatesWindow, Coordinates) = setMarkingCoordinates(binarizedWindow)
+    (virtualLinesWindow, Coordinates) = setVirtualLines(markingCoordinatesWindow, Coordinates)
 
     # The syntax of the command is as followed: cv2.imshow(window_name, image)
     # Here we are going to create all the windows
-    cv2.imshow('Resized Window', resizedWindow)                     # TASK 2
-    cv2.imshow('Grayscale Window', grayWindow)                      # TASK 3
-    cv2.imshow("Road-Only Window", trapezoidWindow * grayWindow)    # TASK 4
-    cv2.imshow("Top-Down Window", topDownWindow)                    # TASK 5
-    cv2.imshow("Blurred Window", blurWindow)                        # TASK 6
-    cv2.imshow("Edge-Detection Window", edgeDetectionWindow)        # TASK 7
-    cv2.imshow("Binarized Window", binarizedWindow)                 # TASK 8
+    cv2.imshow('Resized Window', resizedWindow)                         # TASK 2
+    cv2.imshow('Grayscale Window', grayWindow)                          # TASK 3
+    cv2.imshow("Road-Only Window", trapezoidWindow * grayWindow)        # TASK 4
+    cv2.imshow("Top-Down Window", topDownWindow)                        # TASK 5
+    cv2.imshow("Blurred Window", blurWindow)                            # TASK 6
+    cv2.imshow("Edge-Detection Window", edgeDetectionWindow)            # TASK 7
+    cv2.imshow("Binarized Window", binarizedWindow)                     # TASK 8
+    cv2.imshow("Marking Coordinates Window", markingCoordinatesWindow)  # TASK 9
+    cv2.imshow("Virtual Lines Window", virtualLinesWindow)              # TASK 10
 
     # Here we use the "q" key to close the windows
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
-
-print(markingCoordinates)
 
 # We use cam.release() to close the file we are reading from
 cam.release()
