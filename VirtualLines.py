@@ -1,6 +1,7 @@
 import cv2
-import numpy as np
 
+
+# Here we are going to generate our new Virtual Lines
 def setVirtualLines(frame, left_line, right_line, width, height):
     frameCopy = frame.copy()
     left_top_x = int((0 - left_line[0]) / left_line[1]) if abs((0 - left_line[0]) / left_line[1]) < 1e8 else 0

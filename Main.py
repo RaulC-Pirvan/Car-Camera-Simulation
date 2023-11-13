@@ -1,3 +1,4 @@
+# We will import every library and methods we've created so far
 import cv2
 import numpy
 from Variables import width, height
@@ -29,7 +30,7 @@ while True:
 
     resizedWindow = resizeWindow(frame)
     grayWindow = toGray(resizedWindow)
-    trapezoidWindow = toTrapezoid(grayWindow)
+    trapezoidWindow = toTrapezoid()
     topDownWindow = toTopDown(trapezoidWindow * grayWindow)
     blurWindow = setBlur(topDownWindow)
     edgeDetectionWindow = edgeDetection(blurWindow)

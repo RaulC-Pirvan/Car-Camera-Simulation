@@ -1,7 +1,7 @@
-
 import cv2
 import numpy
 from Variables import width, height, trapezoidShape, trapezoidContour
+
 
 # This method creates a Top-Down view for our camera
 def toTopDown(frame):
