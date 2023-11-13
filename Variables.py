@@ -21,3 +21,4 @@ kernel = 3
 # We create these values for our Sobel method
 edgeVertical = numpy.float32([[-1, -2, -1], [0, 0, 0], [1, 2, 1]])
 edgeHorizontal = numpy.transpose(edgeVertical)
+

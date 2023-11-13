@@ -9,8 +9,8 @@ def setMarkingCoordinates(frame):
     leftCoordinates = numpy.argwhere(leftHalf > 1)
     rightCoordinates = numpy.argwhere(rightHalf > 1)
 
-    if len(rightCoordinates.shape) > 1 and rightCoordinates.shape[1] > 1:
-        rightCoordinates[:, 1] += int(width / 2)  # Adjust x-coordinates for the right half
+    #if len(rightCoordinates.shape) > 1 and rightCoordinates.shape[1] > 1:
+    #    rightCoordinates[:, 1] += int(width / 2)  # Adjust x-coordinates for the right half
 
     leftX, leftY = leftCoordinates[:, 1], leftCoordinates[:, 0]
 
