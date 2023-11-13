@@ -1,17 +1,15 @@
 import numpy
-from Variables import width, height
+from Variables import width
 
+
+# Using this method we are going to create the Markings Coordinates
 def setMarkingCoordinates(frame):
     frameCopy = frame.copy()
-    leftHalf = frameCopy[:, :int(width / 2)]  # Left half of the frame
-    rightHalf = frameCopy[:, int(width / 2):]  # Right half of the frame
+    leftHalf = frameCopy[:, :int(width / 2)]
+    rightHalf = frameCopy[:, int(width / 2):]
 
     leftCoordinates = numpy.argwhere(leftHalf > 1)
     rightCoordinates = numpy.argwhere(rightHalf > 1)
-
-    if len(rightCoordinates.shape) > 1 and rightCoordinates.shape[1] > 1:
-        rightCoordinates[:, 1] += int(width / 2)  # Adjust x-coordinates for the right half
-
     leftX, leftY = leftCoordinates[:, 1], leftCoordinates[:, 0]
 
     if rightCoordinates.size > 0 and len(rightCoordinates.shape) > 1 and rightCoordinates.shape[1] > 1:

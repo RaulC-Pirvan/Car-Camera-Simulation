@@ -1,5 +1,6 @@
 import cv2
 
+
 # We use this method to convert each pixel either to complete black or complete white
 def toBinary(frame):
     initialThreshold = int(255/2)

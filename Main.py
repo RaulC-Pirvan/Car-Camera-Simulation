@@ -1,5 +1,7 @@
+# We will import every library and methods we've created so far
 import cv2
 import numpy
+from Variables import width, height
 from Resize import resizeWindow
 from Grayscale import toGray
 from RoadOnly import toTrapezoid
@@ -9,6 +11,7 @@ from EdgeDetection import edgeDetection
 from Threshold import toBinary
 from MarkingCoordinates import setMarkingCoordinates
 from VirtualLines import setVirtualLines
+from FinalOutput import finalOutput
 
 cam = cv2.VideoCapture('Lane Detection Test Video-01.mp4')
 
@@ -27,13 +30,17 @@ while True:
 
     resizedWindow = resizeWindow(frame)
     grayWindow = toGray(resizedWindow)
-    trapezoidWindow = toTrapezoid(grayWindow)
+    trapezoidWindow = toTrapezoid()
     topDownWindow = toTopDown(trapezoidWindow * grayWindow)
     blurWindow = setBlur(topDownWindow)
     edgeDetectionWindow = edgeDetection(blurWindow)
     binarizedWindow = toBinary(edgeDetectionWindow)
     (markingCoordinatesWindow, Coordinates) = setMarkingCoordinates(binarizedWindow)
-    (virtualLinesWindow, Coordinates) = setVirtualLines(markingCoordinatesWindow, Coordinates)
+    left_line = numpy.polynomial.polynomial.polyfit(Coordinates[0], Coordinates[1], 1)
+    right_line = numpy.polynomial.polynomial.polyfit(Coordinates[2], Coordinates[3], 1)
+    (virtualLinesWindow, laneCoordinates) = setVirtualLines(binarizedWindow, left_line, right_line, width, height)
+    outputWindow = finalOutput(laneCoordinates)
+    finalOutputWindow = cv2.addWeighted(resizedWindow, 1, outputWindow, 1, 0)
 
     # The syntax of the command is as followed: cv2.imshow(window_name, image)
     # Here we are going to create all the windows
@@ -47,6 +54,7 @@ while True:
     cv2.imshow("Binarized Window", binarizedWindow)                     # TASK 8
     cv2.imshow("Marking Coordinates Window", markingCoordinatesWindow)  # TASK 9
     cv2.imshow("Virtual Lines Window", virtualLinesWindow)              # TASK 10
+    cv2.imshow("Final Output Window", finalOutputWindow)                # TASK 11
 
     # Here we use the "q" key to close the windows
     if cv2.waitKey(1) & 0xFF == ord('q'):

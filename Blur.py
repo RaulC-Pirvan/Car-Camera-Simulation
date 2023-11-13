@@ -1,6 +1,6 @@
 import cv2
-import numpy
-from Variables import width, height, kernel
+from Variables import kernel
+
 
 # This method blurs the image
 def setBlur(frame):
