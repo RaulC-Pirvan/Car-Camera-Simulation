@@ -3,8 +3,13 @@ import numpy
 from Variables import height, width
 
 def setVirtualLines(frame, tuple):
-    leftLane = numpy.polynomial.polynomial.polyfit(tuple[0], tuple[1], 1)
-    righLane = numpy.polynomial.polynomial.polyfit(tuple[2], tuple[3], 1)
+    if len(tuple) != 4:
+        return frame, None
+    leftX, leftY, rightX, rightY = tuple
+
+    leftLane = numpy.polynomial.polynomial.polyfit(leftY, leftX, 1)
+    righLane = numpy.polynomial.polynomial.polyfit(rightY, rightX, 1)
+
     leftTopY = 0
     leftTopX = (0 - leftLane[0]) / leftLane[1]
     leftBottomY = height
